@@ -15,8 +15,10 @@ CVS/
 .svn/
 
 */obj/*
-*/bin/ofxVolumetricsExample*
+*/bin/ofx*Example*
 *.o
+*/bin/data/*.mov
+*/.settings/
 
 # XCode specific files
 build/
