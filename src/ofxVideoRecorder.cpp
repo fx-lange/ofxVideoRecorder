@@ -57,6 +57,7 @@ void ofxVideoDataWriterThread::setup(string filePath, lockFreeQueue<ofPixels *> 
 void ofxVideoDataWriterThread::threadedFunction(){
     if(fd == -1){
         fd = ::open(filePath.c_str(), O_WRONLY);
+        cout << "FILE OPEN Q:" << queue->size() << endl;
     }
 
     while(isThreadRunning())
@@ -335,7 +336,8 @@ void ofxVideoRecorder::close()
 			videoThread.signal();
 		}
     }else{
-    	ofLogError() << "closed to early - issue with following records" << endl;
+    	ofLogError() << "closed to early - issue with next record" << endl;
+    	ofLogError() << getVideoQueueSize() << " frames left" << endl;
     }
 
     if(audioThread.isFileOpen()){

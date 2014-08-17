@@ -118,6 +118,7 @@ public:
     int getVideoQueueSize(){ return frames.size(); }
     int getAudioQueueSize(){ return audioFrames.size(); }
     bool isInitialized(){ return bIsInitialized; }
+    bool isReadyToClose(){ return videoThread.isFileOpen(); }
 
     string getMoviePath(){ return moviePath; }
     int getWidth(){return width;}
