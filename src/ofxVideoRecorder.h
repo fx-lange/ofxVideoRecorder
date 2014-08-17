@@ -59,6 +59,7 @@ public:
     void threadedFunction();
     void signal();
     bool isWriting() { return bIsWriting; }
+    bool isFileOpen() { return fd != -1; }
     void close() { bClose = true; stopThread(); signal(); }
 private:
     ofMutex conditionMutex;
@@ -79,6 +80,7 @@ public:
     void threadedFunction();
     void signal();
     bool isWriting() { return bIsWriting; }
+    bool isFileOpen() { return fd != -1; }
     void close() { bClose = true; stopThread(); signal();  }
 private:
     ofMutex conditionMutex;

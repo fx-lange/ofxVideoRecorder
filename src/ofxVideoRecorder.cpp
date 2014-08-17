@@ -329,12 +329,21 @@ void ofxVideoRecorder::close()
     setNonblocking(audioPipeFd);
     setNonblocking(videoPipeFd);
     
-    while(frames.size() > 0 && audioFrames.size() > 0) {
-        // if there are frames in the queue or the thread is writing, signal them until the work is done.
-        videoThread.signal();
-        audioThread.signal();
+   // if there are frames in the queue or the thread is writing, signal them until the work is done.
+    if(videoThread.isFileOpen()){
+		while(frames.size() > 0) {
+			videoThread.signal();
+		}
+    }else{
+    	ofLogError() << "closed to early - issue with following records" << endl;
     }
-    
+
+    if(audioThread.isFileOpen()){
+		while(audioFrames.size() > 0 && audioThread.isFileOpen()) {
+		   audioThread.signal();
+		}
+    }
+
     //at this point all data that ffmpeg wants should have been consumed
     // one of the threads may still be trying to write a frame,
     // but once close() gets called they will exit the non_blocking write loop
